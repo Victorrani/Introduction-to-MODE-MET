@@ -1,10 +1,8 @@
 import numpy as np
 from netCDF4 import Dataset
-import matplotlib.pyplot as plt
 from datetime import datetime, timezone
 
 # Definir os parâmetros da elipse de previsão
-
 center_lat = -15  # Latitude do centro da elipse
 center_lon = -40  # Longitude do centro da elipse
 semi_major_axis = 10  # Eixo maior em graus
@@ -27,8 +25,12 @@ y = lat_grid - center_lat
 x_rot = x * np.cos(theta) + y * np.sin(theta)
 y_rot = -x * np.sin(theta) + y * np.cos(theta)
 
-# Máscara da elipse
-ellipse_mask = ((x_rot / semi_major_axis) ** 2 + (y_rot / semi_minor_axis) ** 2) <= 1
+# Calcular a distância normalizada ao centro da elipse
+distance = np.sqrt((x_rot / semi_major_axis) ** 2 + (y_rot / semi_minor_axis) ** 2)
+
+# Atribuir valores crescentes conforme a proximidade do centro
+max_value = 100  # Defina o valor máximo para o centro
+ellipse_mask = np.clip(max_value * (1 - distance), 0, max_value)
 
 # Criar o arquivo NetCDF
 with Dataset("fct_elipse.nc", "w", format="NETCDF4") as ncfile:
@@ -41,7 +43,7 @@ with Dataset("fct_elipse.nc", "w", format="NETCDF4") as ncfile:
     latitudes = ncfile.createVariable("lat", "f4", ("lat",))
     longitudes = ncfile.createVariable("lon", "f4", ("lon",))
     time = ncfile.createVariable("time", "f8", ("time",))  # Variável de tempo
-    ellipse_data = ncfile.createVariable("precipitation_ellipse", "i1", ("time", "lat", "lon",))
+    ellipse_data = ncfile.createVariable("precipitation_ellipse", "i2", ("time", "lat", "lon",))
 
     # Adicionar atributos globais
     ncfile.description = "10-day precipitation ellipse mask for testing purposes"
@@ -52,20 +54,19 @@ with Dataset("fct_elipse.nc", "w", format="NETCDF4") as ncfile:
     latitudes.units = "degrees_north"
     longitudes.units = "degrees_east"
     time.units = "days since 2025-1-28 0:0:0"
-
     time.calendar = "gregorian"
-    ellipse_data.units = "binary (1=inside, 0=outside)"
-    ellipse_data.description = "Binary mask representing an elliptical area of precipitation"
+    ellipse_data.units = "units (increasing from 1 at the border to max_value at the center)"
+    ellipse_data.description = "Mask with increasing values from the edge to the center"
 
     # Preencher as variáveis
     latitudes[:] = lat
     longitudes[:] = lon
     time[:] = [0.0]  # Primeiro instante de tempo
-    ellipse_data[0, :, :] = ellipse_mask.astype(int)  # Associar dados ao tempo inicial
+    ellipse_data[0, :, :] = ellipse_mask  # Associar dados ao tempo inicial
 
 # Definir os parâmetros da elipse de observação
 center_lat = -15  # Latitude do centro da elipse
-center_lon = -55  # Longitude do centro da elipse
+center_lon = -60  # Longitude do centro da elipse
 semi_major_axis = 10  # Eixo maior em graus
 semi_minor_axis = 5   # Eixo menor em graus
 rotation_angle = 90   # Ângulo de rotação da elipse em graus
@@ -86,10 +87,12 @@ y = lat_grid - center_lat
 x_rot = x * np.cos(theta) + y * np.sin(theta)
 y_rot = -x * np.sin(theta) + y * np.cos(theta)
 
-# Máscara da elipse
-ellipse_mask = ((x_rot / semi_major_axis) ** 2 + (y_rot / semi_minor_axis) ** 2) <= 1
+# Calcular a distância normalizada ao centro da elipse
+distance = np.sqrt((x_rot / semi_major_axis) ** 2 + (y_rot / semi_minor_axis) ** 2)
 
-from datetime import datetime, timezone
+# Atribuir valores crescentes conforme a proximidade do centro
+max_value = 100  # Defina o valor máximo para o centro
+ellipse_mask = np.clip(max_value * (1 - distance), 0, max_value)
 
 # Criar o arquivo NetCDF
 with Dataset("obs_elipse.nc", "w", format="NETCDF4") as ncfile:
@@ -102,7 +105,7 @@ with Dataset("obs_elipse.nc", "w", format="NETCDF4") as ncfile:
     latitudes = ncfile.createVariable("lat", "f4", ("lat",))
     longitudes = ncfile.createVariable("lon", "f4", ("lon",))
     time = ncfile.createVariable("time", "f8", ("time",))  # Variável de tempo
-    ellipse_data = ncfile.createVariable("precipitation_ellipse", "i1", ("time", "lat", "lon",))
+    ellipse_data = ncfile.createVariable("precipitation_ellipse", "i2", ("time", "lat", "lon",))
 
     # Adicionar atributos globais
     ncfile.description = "10-day precipitation ellipse mask for testing purposes"
@@ -113,13 +116,12 @@ with Dataset("obs_elipse.nc", "w", format="NETCDF4") as ncfile:
     latitudes.units = "degrees_north"
     longitudes.units = "degrees_east"
     time.units = "days since 2025-1-28 0:0:0"
-
     time.calendar = "gregorian"
-    ellipse_data.units = "binary (1=inside, 0=outside)"
-    ellipse_data.description = "Binary mask representing an elliptical area of precipitation"
+    ellipse_data.units = "units (increasing from 1 at the border to max_value at the center)"
+    ellipse_data.description = "Mask with increasing values from the edge to the center"
 
     # Preencher as variáveis
     latitudes[:] = lat
     longitudes[:] = lon
     time[:] = [0.0]  # Primeiro instante de tempo
-    ellipse_data[0, :, :] = ellipse_mask.astype(int)  # Associar dados ao tempo inicial
+    ellipse_data[0, :, :] = ellipse_mask  # Associar dados ao tempo inicial
