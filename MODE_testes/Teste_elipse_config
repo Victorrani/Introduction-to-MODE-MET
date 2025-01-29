@@ -66,11 +66,11 @@ fcst = {
    censor_thresh      = [];
    censor_val         = [];
    conv_radius        = [5];
-   conv_thresh        = ['>=50.0'];
+   conv_thresh        = ['>=80.0'];
    vld_thresh         = 0.5;
    filter_attr_name   = [];
    filter_attr_thresh = [];
-   merge_thresh       = >=5;
+   merge_thresh       = >=20;
    merge_flag         = NONE;
 }
 
@@ -88,11 +88,11 @@ obs = {
    censor_thresh      = [];
    censor_val         = [];
    conv_radius        = [5];
-   conv_thresh        = ['>=50.0'];
+   conv_thresh        = ['>=80.0'];
    vld_thresh         = 0.5;
    filter_attr_name   = [];
    filter_attr_thresh = [];
-   merge_thresh       = >=5;
+   merge_thresh       = >=20;
    merge_flag         = NONE;
    
 }
