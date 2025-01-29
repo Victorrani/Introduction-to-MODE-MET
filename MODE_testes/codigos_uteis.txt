@@ -1,0 +1,15 @@
+cdo mergetime *.grib2 output.grib2
+
+junta todos os arquivos grib2 que tenho em um unico arquivo
+
+gs -dBATCH -dNOPAUSE -sDEVICE=pdfwrite -sOutputFile=teste_grib2.pdf mode_teste_grib2_2160000L_20250107_000000V_000000A.ps
+
+
+cdo griddes precip_acumulada_MONAM.nc > target_grid.txt
+
+escreve os grids de determinado arquivo. procurar o que tem melhor resolução
+
+cdo remapbil,target_grid.txt precip_acumulada_MERGE.nc precip_acumulada_MERGE_remap.nc
+
+transforma com os dados target_grid.txt a grade do arquivo com resolução menor. MODE procura arquivos com mesma resolução e grade para comparar (?)
+
