@@ -16,4 +16,5 @@ No diretório MODE_testes, serão encontrados arquivos de teste para entender o 
 Este repositório foi inspirado no trabalho de HathewayWill (https://github.com/HathewayWill) e tem como objetivo ajudar na instalação e utilização do MET e de suas ferramentas, principalmente o MODE, em língua portuguesa.
 
 📖 Citação
+
 Hatheway, W., Snoun, H., ur Rehman, H. et al. WRF-MOSIT: a modular and cross-platform tool for configuring and installing the WRF model. Earth Sci Inform (2023). DOI: 10.1007/s12145-023-01136-y
