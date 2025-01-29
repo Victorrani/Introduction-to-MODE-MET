@@ -8,8 +8,8 @@ Aqui você encontrará tutoriais e exemplos práticos para iniciantes, facilitan
 
 O MODE e o MET foram desenvolvidos pelo Developmental Testbed Center (https://dtcenter.org/) e lançados em janeiro de 2008.
 
-No diretório instalacao, serão encontradas as formas de instalação automática (v11.1.1 de HathewayWill) e manual.
-No diretório MODE_testes, serão encontrados arquivos de teste para entender o funcionamento da ferramenta MODE de forma mais simples.
+No diretório **instalacao**, serão encontradas as formas de instalação automática (v11.1.1 de HathewayWill) e manual.
+No diretório **MODE_testes**, serão encontrados arquivos de teste para entender o funcionamento da ferramenta MODE de forma mais simples.
 
 📌 Sobre este repositório
 
