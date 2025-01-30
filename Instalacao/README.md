@@ -35,7 +35,7 @@ cd $HOME/DTC-MOSIT
 
 chmod 775 *.sh
 
-./DTC-MOSIT.sh 2>&1 | tee DTC_MOSIT.log
+./DTC_MOSIT.sh 2>&1 | tee DTC_MOSIT.log
 ```
 
 ## 💾 Instalação com APT (Ubuntu, Debian, Mint, WSL)
@@ -51,7 +51,7 @@ cd $HOME/DTC-MOSIT
 
 chmod 775 *.sh
 
-./DTC-MOSIT.sh 2>&1 | tee DTC_MOSIT.log
+./DTC_MOSIT.sh 2>&1 | tee DTC_MOSIT.log
 ```
 
 ## 📦 Instalação com YUM/DNF (Fedora, Rocky Linux, CentOS 7)
@@ -68,7 +68,7 @@ cd $HOME/DTC-MOSIT
 
 chmod 775 *.sh
 
-./DTC-MOSIT.sh 2>&1 | tee DTC_MOSIT.log
+./DTC_MOSIT.sh 2>&1 | tee DTC_MOSIT.log
 ```
 
 🔍 Verificação do Sistema
